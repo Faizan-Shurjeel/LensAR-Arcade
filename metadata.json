@@ -1,0 +1,7 @@
+{
+  "name": "LensAR: Arcade",
+  "description": "A Nintendo 3DS-style AR Card experience in your browser. Scan the Hiro marker to play.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}

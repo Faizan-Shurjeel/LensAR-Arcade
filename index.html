@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>LensAR: Arcade</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              arcade: {
+                yellow: '#fbbf24',
+                red: '#ef4444',
+                blue: '#3b82f6',
+                glass: 'rgba(0, 0, 0, 0.7)',
+              }
+            },
+            animation: {
+              'bounce-slow': 'bounce 3s infinite',
+              'pulse-fast': 'pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+      body { margin: 0; overflow: hidden; background-color: #000; touch-action: none; }
+      
+      /* App Root needs to sit on top of video but be transparent */
+      #root { 
+        width: 100vw; 
+        height: 100vh; 
+        position: relative; 
+        z-index: 10; 
+      }
+
+      /* AR.js injected video styling */
+      .arjs-loader {
+        margin: 0 auto;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 9999;
+        background-color: rgba(0, 0, 0, 0.8);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+      }
+      
+      /* Target both ID and Class just in case AR.js version varies */
+      #arjs-video, .arjs-video {
+        position: absolute !important;
+        top: 0;
+        left: 0;
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover !important;
+        z-index: -1 !important; /* Behind everything */
+        display: block !important;
+      }
+      
+      .canvas-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+        pointer-events: none; /* Let clicks pass through canvas container to canvas */
+      }
+      
+      canvas {
+        pointer-events: auto; /* Re-enable pointer events on the actual canvas */
+      }
+    </style>
+    <script type="importmap">
+    {
+      "imports": {
+        "react-dom/": "https://esm.sh/react-dom@^18.2.0/",
+        "react/": "https://esm.sh/react@^18.2.0/",
+        "react": "https://esm.sh/react@^18.2.0",
+        "three": "https://esm.sh/three@0.160.0",
+        "lucide-react": "https://esm.sh/lucide-react@^0.292.0",
+        "@react-three/fiber": "https://esm.sh/@react-three/fiber@8.15.12?external=react,react-dom,three"
+      }
+    }
+    </script>
+    <!-- Inject THREE global for AR.js -->
+    <script type="module">
+      import * as THREE from 'three';
+      window.THREE = THREE;
+      
+      // Load AR.js after THREE is available
+      const script = document.createElement('script');
+      script.src = 'https://raw.githack.com/AR-js-org/AR.js/master/three.js/build/ar-threex.js';
+      script.async = false;
+      document.head.appendChild(script);
+    </script>
+  <link rel="stylesheet" href="/index.css">
+</head>
+  <body>
+    <div id="root"></div>
+  <script type="module" src="/index.tsx"></script>
+</body>
+</html>
