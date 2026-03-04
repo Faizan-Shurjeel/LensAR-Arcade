@@ -224,8 +224,3 @@ When proposing changes to AR.js integration, explain testing steps (how you veri
   - TailwindCSS
 
 ---
-
-If you'd like, I can:
-- Add this README to the repository as a new file (open a PR).
-- Create a small checklist of improvements (bundle AR.js locally, add sample marker assets in `data/`, add CI preview).
-Tell me which you'd like me to do next.
